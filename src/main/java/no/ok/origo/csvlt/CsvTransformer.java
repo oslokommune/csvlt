@@ -34,9 +34,6 @@ public class CsvTransformer {
                 .withFirstRecordAsHeader();
 
         CSVParser csvParser = CSVParser.parse(input, format);
-        ArrayList<String> fieldNames = new ArrayList<>();
-        csvParser.getHeaderMap().forEach((key, value) -> fieldNames.add(key));
-
         List<JsonNode> rows = StreamSupport.stream(csvParser.spliterator(), false)
                 .map(this::toJsonValue)
                 .map(jslt::apply)
@@ -45,6 +42,9 @@ public class CsvTransformer {
         if (rows.isEmpty()) {
             return "";
         }
+
+        ArrayList<String> fieldNames = new ArrayList<>();
+        rows.get(0).fieldNames().forEachRemaining(fieldNames::add);
 
         StringWriter sw = new StringWriter();
         CSVPrinter csvPrinter = format

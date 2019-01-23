@@ -29,4 +29,13 @@ public class CsvTransformerTest {
         String expected = "a;b;c\n2;3;4\n";
         assertEquals(expected, result, "Add one to value");
     }
+
+    @Test
+    public void renaming_column() throws Exception {
+        CsvTransformer transformer = new CsvTransformer("{ \"foo\": .a, * - a: .}");
+        String result = transformer.transform("a;b;c\n1;2;3\n");
+        String expected = "foo;b;c\n1;2;3\n";
+        assertEquals(expected, result, "Renaming column");
+    }
+
 }
