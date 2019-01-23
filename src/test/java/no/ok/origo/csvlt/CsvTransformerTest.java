@@ -1,5 +1,6 @@
 package no.ok.origo.csvlt;
 
+import org.apache.commons.csv.CSVFormat;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,4 +39,12 @@ public class CsvTransformerTest {
         assertEquals(expected, result, "Renaming column");
     }
 
+    @Test
+    public void let_user_specify_different_format() throws Exception {
+        CSVFormat format = CSVFormat.DEFAULT.withRecordSeparator('\n').withHeader();
+        CsvTransformer transformer = new CsvTransformer("{ * : number(.) + 1 }", format);
+        String result = transformer.transform("a,b,c\n1,2,3\n");
+        String expected = "a,b,c\n2,3,4\n";
+        assertEquals(expected, result, "Let user specify different CSV format");
+    }
 }
