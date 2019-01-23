@@ -22,4 +22,11 @@ public class CsvTransformerTest {
         assertEquals(expected, result, "Dummy transform should pass content through unchanged");
     }
 
+    @Test
+    public void add_one_to_value() throws Exception {
+        CsvTransformer transformer = new CsvTransformer("{ * : number(.) + 1 }");
+        String result = transformer.transform("a;b;c\n1;2;3\n");
+        String expected = "a;b;c\n2;3;4\n";
+        assertEquals(expected, result, "Add one to value");
+    }
 }
