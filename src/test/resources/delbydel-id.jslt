@@ -1,0 +1,14 @@
+def zeroes(length)
+  if ($length < 1)
+    ""
+  else
+    "0" + zeroes($length - 1)
+
+def delbydel_id(delbydel_nummer)
+  let nr = string(round(number($delbydel_nummer)))
+  zeroes(4 - size($nr)) + $nr
+
+{
+  "delbydel_id": delbydel_id(.Delbydelnummer),
+  "navn": .Delbydelsnavn
+}
