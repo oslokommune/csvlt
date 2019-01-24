@@ -10,8 +10,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -38,13 +37,19 @@ public class CsvTransformer {
     }
 
     public String transform(String input) throws IOException {
+        StringWriter sw = new StringWriter();
+        transform(new StringReader(input), sw);
+        return sw.toString();
+    }
+
+    public void transform(Reader input, Writer output) throws IOException {
         Iterable<CSVRecord> records = CSVParser.parse(input, format);
         if (!records.iterator().hasNext()) { // empty
-            return "";
+            return;
         }
 
         List<JsonNode> rows = transformRecords(records);
-        return writeCsv(rows);
+        writeCsv(rows, output);
     }
 
     private List<JsonNode> transformRecords(Iterable<CSVRecord> records) {
@@ -54,13 +59,12 @@ public class CsvTransformer {
                 .collect(Collectors.toList());
     }
 
-    private String writeCsv(Collection<JsonNode> rows) throws IOException {
+    private void writeCsv(Collection<JsonNode> rows, Writer output) throws IOException {
         ArrayList<String> fieldNames = getFieldNames(rows);
 
-        StringWriter sw = new StringWriter();
         CSVPrinter csvPrinter = format
                 .withHeader(fieldNames.toArray(new String[0]))
-                .print(sw);
+                .print(output);
 
         for (JsonNode row : rows) {
             List<Object> values = fieldNames.stream()
@@ -69,8 +73,6 @@ public class CsvTransformer {
                     .collect(Collectors.toList());
             csvPrinter.printRecord(values);
         }
-
-        return sw.toString();
     }
 
     private ArrayList<String> getFieldNames(Collection<JsonNode> rows) {

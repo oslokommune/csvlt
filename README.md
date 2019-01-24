@@ -16,9 +16,17 @@ library for parsing and writing CSV content. (Another alternative is
 
 ```$java
 String jslt = "{ * : number(.) + 1 }";
-String input = "a;b;c\n1;2;3\n";
 CSVTransformer transformer = new CSVTransformer(jslt);
+
+String input = "a;b;c\n1;2;3\n";
 String result = transformer.transform(input);
 
 // result == "a;b;c\n2;3;4\n"
+```
+
+Alternatively, pass in `Reader` and `Writer` instances to the `transform` method:
+```$java
+java.io.Reader input = ...
+java.io.Writer output = ...
+transformer.transform(input, output);
 ```
