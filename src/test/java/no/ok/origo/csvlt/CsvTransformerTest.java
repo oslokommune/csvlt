@@ -74,6 +74,14 @@ public class CsvTransformerTest {
         assertEquals(expected, result, "delbydel_id");
     }
 
+    @Test
+    public void transform_should_handle_empty_cells() throws Exception {
+        CsvTransformer transformer = new CsvTransformer("{ * : . }");
+        String result = transformer.transform("a;b;c\n1;;3\n");
+        String expected = "a;b;c\n1;;3\n";
+        assertEquals(expected, result, "Transform should handle empty cells");
+    }
+
     private String readResource(String name) throws IOException, URISyntaxException {
         Path path = Paths.get(getClass().getClassLoader().getResource(name).toURI());
         return Files.lines(path).collect(Collectors.joining("\n"));
