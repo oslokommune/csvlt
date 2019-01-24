@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -37,18 +38,24 @@ public class CsvTransformer {
     }
 
     public String transform(String input) throws IOException {
-        CSVParser csvParser = CSVParser.parse(input, format);
-        List<JsonNode> rows = StreamSupport.stream(csvParser.spliterator(), false)
-                .map(this::toJsonValue)
-                .map(jslt::apply)
-                .collect(Collectors.toList());
-
-        if (rows.isEmpty()) {
+        Iterable<CSVRecord> records = CSVParser.parse(input, format);
+        if (!records.iterator().hasNext()) { // empty
             return "";
         }
 
-        ArrayList<String> fieldNames = new ArrayList<>();
-        rows.get(0).fieldNames().forEachRemaining(fieldNames::add);
+        List<JsonNode> rows = transformRecords(records);
+        return writeCsv(rows);
+    }
+
+    private List<JsonNode> transformRecords(Iterable<CSVRecord> records) {
+        return StreamSupport.stream(records.spliterator(), false)
+                .map(this::toJsonValue)
+                .map(jslt::apply)
+                .collect(Collectors.toList());
+    }
+
+    private String writeCsv(Collection<JsonNode> rows) throws IOException {
+        ArrayList<String> fieldNames = getFieldNames(rows);
 
         StringWriter sw = new StringWriter();
         CSVPrinter csvPrinter = format
@@ -66,13 +73,21 @@ public class CsvTransformer {
         return sw.toString();
     }
 
-    protected JsonNode toJsonValue(CSVRecord record) {
+    private ArrayList<String> getFieldNames(Collection<JsonNode> rows) {
+        JsonNode firstRow = rows.iterator().next();
+
+        ArrayList<String> fieldNames = new ArrayList<>();
+        firstRow.fieldNames().forEachRemaining(fieldNames::add);
+        return fieldNames;
+    }
+
+    private JsonNode toJsonValue(CSVRecord record) {
         ObjectNode json = om.createObjectNode();
         record.toMap().forEach(json::put);
         return json;
     }
 
-    protected Object toCsvValue(JsonNode node) {
+    private Object toCsvValue(JsonNode node) {
         return node.asText();
     }
 }
