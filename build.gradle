@@ -1,5 +1,14 @@
 plugins {
+  id "com.github.johnrengelman.shadow" version "4.0.4"
   id 'java'
+}
+
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'no.ok.origo.csvlt.CsvTransformer'
+    )
+  }
 }
 
 repositories {
