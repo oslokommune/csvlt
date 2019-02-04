@@ -3,8 +3,9 @@ package no.ok.origo.csvlt;
 import org.apache.commons.csv.CSVFormat;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -82,8 +83,39 @@ public class CsvTransformerTest {
         assertEquals(expected, result, "Transform should handle empty cells");
     }
 
+    @Test
+    public void should_handle_streams() throws Exception {
+        CsvTransformer transformer = new CsvTransformer(readResource("delbydel-id.jslt"));
+        InputStream inputStream = Files.newInputStream(getResourcePath("boligpriser.csv"));
+        InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+        StringWriter writer = new StringWriter();
+
+        transformer.transform(streamReader, writer);
+        String result = writer.toString();
+
+        streamReader.close();
+        inputStream.close();
+        writer.close();
+
+        String expected = "delbydel_id;navn\n" +
+                "0011;Lodalen\n" +
+                "0012;Grønland\n" +
+                "0013;Enerhaugen\n" +
+                "0014;Nedre Tøyen\n" +
+                "0015;Kampen\n" +
+                "0016;Vålerenga\n" +
+                "0017;Helsfyr\n" +
+                "0021;Grünerløkka vest\n" +
+                "0022;Grünerløkka øst\n";
+
+        assertEquals(expected, result, "Transform should handle streams");
+    }
+
+    private Path getResourcePath(String name) throws URISyntaxException {
+        return Paths.get(getClass().getClassLoader().getResource(name).toURI());
+    }
+
     private String readResource(String name) throws IOException, URISyntaxException {
-        Path path = Paths.get(getClass().getClassLoader().getResource(name).toURI());
-        return Files.lines(path).collect(Collectors.joining("\n"));
+        return Files.lines(getResourcePath(name)).collect(Collectors.joining("\n"));
     }
 }
