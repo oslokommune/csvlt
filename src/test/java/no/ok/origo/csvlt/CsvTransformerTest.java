@@ -61,16 +61,7 @@ public class CsvTransformerTest {
         CsvTransformer transformer = new CsvTransformer(readResource("delbydel-id.jslt"));
         String result = transformer.transform(readResource("boligpriser.csv"));
 
-        String expected = "delbydel_id;navn\n" +
-                "0011;Lodalen\n" +
-                "0012;Grønland\n" +
-                "0013;Enerhaugen\n" +
-                "0014;Nedre Tøyen\n" +
-                "0015;Kampen\n" +
-                "0016;Vålerenga\n" +
-                "0017;Helsfyr\n" +
-                "0021;Grünerløkka vest\n" +
-                "0022;Grünerløkka øst\n";
+        String expected = readResource("boligpriser-result.csv") + "\n";
 
         assertEquals(expected, result, "delbydel_id");
     }
@@ -97,16 +88,7 @@ public class CsvTransformerTest {
         inputStream.close();
         writer.close();
 
-        String expected = "delbydel_id;navn\n" +
-                "0011;Lodalen\n" +
-                "0012;Grønland\n" +
-                "0013;Enerhaugen\n" +
-                "0014;Nedre Tøyen\n" +
-                "0015;Kampen\n" +
-                "0016;Vålerenga\n" +
-                "0017;Helsfyr\n" +
-                "0021;Grünerløkka vest\n" +
-                "0022;Grünerløkka øst\n";
+        String expected = readResource("boligpriser-result.csv")+ "\n";
 
         assertEquals(expected, result, "Transform should handle streams");
     }
