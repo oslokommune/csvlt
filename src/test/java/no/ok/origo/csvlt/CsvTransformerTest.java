@@ -61,7 +61,7 @@ public class CsvTransformerTest {
         CsvTransformer transformer = new CsvTransformer(readResource("delbydel-id.jslt"));
         String result = transformer.transform(readResource("boligpriser.csv"));
 
-        String expected = readResource("boligpriser-result.csv") + "\n";
+        String expected = readResource("boligpriser-result.csv");
 
         assertEquals(expected, result, "delbydel_id");
     }
@@ -88,7 +88,7 @@ public class CsvTransformerTest {
         inputStream.close();
         writer.close();
 
-        String expected = readResource("boligpriser-result.csv")+ "\n";
+        String expected = readResource("boligpriser-result.csv");
 
         assertEquals(expected, result, "Transform should handle streams");
     }
