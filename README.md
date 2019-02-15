@@ -33,3 +33,9 @@ java.io.Reader input = ...
 java.io.Writer output = ...
 transformer.transform(input, output);
 ```
+
+
+## Publish artifact
+To publish a new artifact to `artifacts.oslo.kommune.no` : 
+- Bump version number in `build.gradle`
+- Run command `gradle clean publishCsvltPublicationToNexusOKRepository`
