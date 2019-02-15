@@ -1,7 +1,7 @@
-CSV Transformer
-===============
+CSVLT - CSV transformation library
+==================================
 
-Library to transform CSV files, based on [JSLT](https://github.com/schibsted/jslt).
+Java library to transform CSV files, based on [JSLT](https://github.com/schibsted/jslt).
 
 Uses the [Apache Commons CSV](http://commons.apache.org/proper/commons-csv/)
 library for parsing and writing CSV content.
