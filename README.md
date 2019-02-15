@@ -4,8 +4,11 @@ CSV Transformer
 Library to transform CSV files, based on [JSLT](https://github.com/schibsted/jslt).
 
 Uses the [Apache Commons CSV](http://commons.apache.org/proper/commons-csv/)
-library for parsing and writing CSV content. (Another alternative is
-[OpenCSV](http://opencsv.sourceforge.net/))
+library for parsing and writing CSV content.
+
+Alternatives to consider:
+- [univocity-parsers](https://github.com/uniVocity/univocity-parsers)
+- [OpenCSV](http://opencsv.sourceforge.net/)
 
 ## Usage
 
