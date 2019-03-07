@@ -11,9 +11,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -60,7 +58,7 @@ public class CsvTransformer {
     }
 
     private void writeCsv(Collection<JsonNode> rows, Writer output) throws IOException {
-        ArrayList<String> fieldNames = getFieldNames(rows);
+        Collection<String> fieldNames = getFieldNames(rows);
 
         CSVPrinter csvPrinter = format
                 .withHeader(fieldNames.toArray(new String[0]))
@@ -75,11 +73,11 @@ public class CsvTransformer {
         }
     }
 
-    private ArrayList<String> getFieldNames(Collection<JsonNode> rows) {
-        JsonNode firstRow = rows.iterator().next();
-
-        ArrayList<String> fieldNames = new ArrayList<>();
-        firstRow.fieldNames().forEachRemaining(fieldNames::add);
+    private Collection<String> getFieldNames(Collection<JsonNode> rows) {
+        Set<String> fieldNames = new LinkedHashSet<>();
+        for (JsonNode row : rows) {
+            row.fieldNames().forEachRemaining(fieldNames::add);
+        }
         return fieldNames;
     }
 
