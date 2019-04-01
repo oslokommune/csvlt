@@ -93,6 +93,14 @@ public class CsvTransformerTest {
         assertEquals(expected, result, "Transform should handle streams");
     }
 
+    @Test
+    public void should_be_able_to_trim_strings() throws Exception {
+        CsvTransformer transformer = new CsvTransformer("{ \"a\" : trim(.a) }");
+        String result = transformer.transform("a\n foo \n bar\nbaz \n");
+        String expected = "a\nfoo\nbar\nbaz\n";
+        assertEquals(expected, result, "Transform should be able to trim cells");
+    }
+
     private Path getResourcePath(String name) throws URISyntaxException {
         return Paths.get(getClass().getClassLoader().getResource(name).toURI());
     }
