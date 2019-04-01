@@ -30,7 +30,7 @@ public class CsvTransformer {
 
     public CsvTransformer(String transform, CSVFormat format) {
         this.format = format;
-        jslt = Parser.compileString(transform);
+        jslt = Parser.compileString(transform, JsltFunctions.functions.values());
         om = new ObjectMapper();
     }
 
