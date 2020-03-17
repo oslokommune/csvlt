@@ -30,7 +30,9 @@ public class CsvTransformer {
 
     public CsvTransformer(String transform, CSVFormat format) {
         this.format = format;
-        jslt = Parser.compileString(transform);
+        jslt = new Parser(new StringReader(transform))
+                .withObjectFilter(value -> true)
+                .compile();
         om = new ObjectMapper();
     }
 
@@ -88,8 +90,8 @@ public class CsvTransformer {
     }
 
     private Object toCsvValue(JsonNode node) {
-        if(node == null){
-            return null;
+        if (node == null || node.isNull()) {
+            return "";
         }
         return node.asText();
     }

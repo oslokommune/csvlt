@@ -1,28 +1,4 @@
-antall omsatte blokkleieligheter;år solgt;kvmpris;Delbydelnummer;Delbydelsnavn;Bydelsnavn;delbydelid
-15.0;2004;33385.0;;;Sentrum;
-1.0;2004;2019.0;;;Marka;
-1153.0;2004;26296.0;;;Bydel Gamle Oslo;
-1497.0;2004;27430.0;;;Bydel Grünerløkka;
-1341.0;2004;28350.0;;;Bydel Sagene;
-943.0;2004;29800.0;;;Bydel St Hanshaugen;
-1299.0;2004;31300.0;;;Bydel Frogner;
-383.0;2004;29453.0;;;Bydel Ullern;
-376.0;2004;26651.0;;;Bydel Vestre Aker;
-457.0;2004;28934.0;;;Bydel Nordre Aker;
-475.0;2004;21903.0;;;Bydel Bjerke;
-550.0;2004;18297.0;;;Bydel Grorud;
-398.0;2004;17733.0;;;Bydel Stovner;
-977.0;2004;18880.0;;;Bydel Alna;
-861.0;2004;21827.0;;;Bydel Østensjø;
-691.0;2004;22697.0;;;Bydel Nordstrand;
-382.0;2004;16251.0;;;Bydel Søndre Nordstrand;
-103;2004;25550.22893203883;11.0;Lodalen;Gamle Oslo;0301010101
-167;2004;26675.75502994012;12.0;Grønland;Gamle Oslo;0301010102
-185;2004;26525.050756756744;13.0;Enerhaugen;Gamle Oslo;0301010103
-182;2004;26244.214340659346;14.0;Nedre Tøyen;Gamle Oslo;0301010104
-132;2004;27939.10825757577;15.0;Kampen;Gamle Oslo;0301010105
-153;2004;26251.32522875818;16.0;Vålerenga;Gamle Oslo;0301010106
-231;2004;25300.7093939394;17.0;Helsfyr;Gamle Oslo;0301010107
-122;2004;29012.1118852459;21.0;Grünerløkka vest;Grünerløkka;0301020201
-169;2004;28836.890414201192;22.0;Grünerløkka øst;Grünerløkka;0301020202
+aar;delbydel_id;delbydel_navn;bydel_navn;antall_omsatte_blokkleieligheter;kvmpris
+2004;;;Gamle Oslo;1153.0;26296.0
+2004;0101;Lodalen;Gamle Oslo;103;25550.22893203883
 
