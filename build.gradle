@@ -1,5 +1,5 @@
 plugins {
-  id "com.github.johnrengelman.shadow" version "4.0.4"
+  id "com.github.johnrengelman.shadow" version "5.2.0"
   id 'maven-publish'
   id 'java'
 }
@@ -21,7 +21,7 @@ publishing {
       from components.java
       group = 'no.ok.origo'
       artifactId = 'csvlt'
-      version = '0.1.7'
+      version = '0.1.8'
     }
   }
   repositories {
@@ -41,7 +41,7 @@ test {
 }
 
 dependencies {
-  implementation 'com.schibsted.spt.data:jslt:0.1.8'
+  implementation 'com.schibsted.spt.data:jslt:0.1.9'
   implementation 'org.apache.commons:commons-csv:1.6'
   testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'

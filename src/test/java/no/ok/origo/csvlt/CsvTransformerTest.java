@@ -57,13 +57,13 @@ public class CsvTransformerTest {
     }
 
     @Test
-    public void delbydel_id() throws Exception {
+    public void keep_column_order_even_with_empty_values_on_first_row() throws Exception {
         CsvTransformer transformer = new CsvTransformer(readResource("delbydel-id.jslt"));
         String result = transformer.transform(readResource("boligpriser.csv"));
 
         String expected = readResource("boligpriser-result.csv");
 
-        assertEquals(expected, result, "delbydel_id");
+        assertEquals(expected, result, "Keep column order even with empty values on first row");
     }
 
     @Test
