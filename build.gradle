@@ -11,7 +11,7 @@ targetCompatibility = '1.8'
 jar {
   manifest {
     attributes(
-      'Main-Class': 'no.ok.origo.csvlt.CsvTransformer'
+            'Main-Class': 'no.ok.origo.csvlt.CsvTransformer'
     )
   }
 }
@@ -20,9 +20,14 @@ publishing {
   publications{
     csvlt(MavenPublication){
       from components.java
+      group = 'no.ok.origo'
+      artifactId = 'csvlt'
+      version = project.version
     }
   }
 }
+
+publishCsvltPublicationToMavenLocal.dependsOn shadowJar
 
 repositories {
   jcenter()
