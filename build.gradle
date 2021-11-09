@@ -24,6 +24,13 @@ publishing {
   }
 }
 
+publishCsvltPublicationToMavenLocal.dependsOn shadowJar
+
+build {
+  dependsOn test
+  dependsOn shadowJar
+}
+
 repositories {
   jcenter()
 }
