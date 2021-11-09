@@ -8,44 +8,29 @@ plugins {
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-group = 'no.ok.origo.csvlt'
-
 jar {
   manifest {
     attributes(
-      'Main-Class': 'no.ok.origo.csvlt.CsvTransformer'
+            'Main-Class': 'no.ok.origo.csvlt.CsvTransformer'
     )
   }
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-  from sourceSets.main.allSource
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  from javadoc.destinationDir
-}
-
-shadowJar {
-}
-
-artifacts {
-  archives sourcesJar
-  archives javadocJar
-  archives shadowJar
 }
 
 publishing {
   publications{
     csvlt(MavenPublication){
       from components.java
-      artifact shadowJar
+      group = 'no.ok.origo'
+      artifactId = 'csvlt'
+      version = project.version
     }
   }
 }
 
+publishCsvltPublicationToMavenLocal.dependsOn shadowJar
+
 repositories {
-  mavenCentral()
+  jcenter()
 }
 
 test {
